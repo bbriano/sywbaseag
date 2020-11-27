@@ -8,9 +8,12 @@ class LinkedListNode:
 
 
 class LinkedList:
-    def __init__(self):
+    def __init__(self, init=[]):
         self.head = None
         self.length = 0
+
+        for x in init:
+            self.append(x)
 
     def __getitem__(self, index):
         self.__check_index_inbound(index)
@@ -46,15 +49,6 @@ class LinkedList:
             second_last.next = None
         self.length -= 1
         return value
-
-    def reverse(self):
-        p, c, = None, self.head
-        while c:
-            t = c.next
-            c.next = p
-            p = c
-            c = t
-        self.head = p
 
     def __check_index_inbound(self, index):
         if index < 0 or index >= self.length:
@@ -124,15 +118,6 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(l.pop(), 1)
         with self.assertRaises(IndexError):
             l.pop()
-
-    def test_reverse(self):
-        l = LinkedList()
-        l.append(1)
-        l.append(2)
-        l.append(3)
-        l.append(4)
-        l.reverse()
-        self.assertEqual(list(l), [4, 3, 2, 1])
 
 
 if __name__ == "__main__":
